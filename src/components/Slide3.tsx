@@ -55,9 +55,14 @@ export default function Slide3({ text }: { text: string }) {
               <motion.div 
                 animate={{ y: [0, -6, 0] }} 
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="p-4 bg-emerald-100 text-emerald-600 rounded-2xl shadow-inner"
+                className="p-4 bg-emerald-100 text-emerald-600 rounded-2xl shadow-inner flex items-center justify-center"
               >
-                <Clock className="w-8 h-8"/>
+                <motion.div
+                  animate={{ rotate: [-15, 15, -15] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Clock className="w-8 h-8"/>
+                </motion.div>
               </motion.div>
               <div>
                 <h4 className="font-black text-xl text-stone-800">Quick & Easy</h4>
@@ -74,9 +79,14 @@ export default function Slide3({ text }: { text: string }) {
               <motion.div 
                 animate={{ y: [0, -6, 0] }} 
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="p-4 bg-rose-100 text-rose-600 rounded-2xl shadow-inner"
+                className="p-4 bg-rose-100 text-rose-600 rounded-2xl shadow-inner flex items-center justify-center"
               >
-                <Gift className="w-8 h-8"/>
+                <motion.div
+                  animate={{ y: [0, -4, 0], scale: [1, 1.1, 1], rotate: [-5, 5, -5] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Gift className="w-8 h-8"/>
+                </motion.div>
               </motion.div>
               <div>
                 <h4 className="font-black text-xl text-stone-800">Heroic Impact</h4>

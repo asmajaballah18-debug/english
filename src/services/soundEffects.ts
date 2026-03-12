@@ -1,6 +1,8 @@
 class SoundEffects {
   private ctx: AudioContext | null = null;
   public enabled: boolean = true;
+  private bgmGain: GainNode | null = null;
+  private bgmInterval: number | null = null;
 
   public getCtx() {
     if (!this.ctx) {
@@ -10,6 +12,69 @@ class SoundEffects {
       this.ctx.resume();
     }
     return this.ctx;
+  }
+
+  startBackgroundMusic() {
+    if (this.bgmGain) return; // Already playing
+    const ctx = this.getCtx();
+    this.bgmGain = ctx.createGain();
+    this.bgmGain.gain.value = 0.03; // Very subtle volume
+    this.bgmGain.connect(ctx.destination);
+
+    const playChord = () => {
+      if (!this.bgmGain) return;
+      // Uplifting, ambient chord progression
+      const chords = [
+        [261.63, 329.63, 392.00], // C major
+        [349.23, 440.00, 523.25], // F major
+        [392.00, 493.88, 587.33], // G major
+        [261.63, 349.23, 440.00], // F major inversion
+      ];
+      
+      const chord = chords[Math.floor(Math.random() * chords.length)];
+      
+      chord.forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        // Drop an octave for a warmer, pad-like sound
+        osc.frequency.value = freq / 2; 
+        
+        const oscGain = ctx.createGain();
+        oscGain.gain.setValueAtTime(0, ctx.currentTime);
+        // Slow attack
+        oscGain.gain.linearRampToValueAtTime(0.3 / (index + 1), ctx.currentTime + 3);
+        // Slow release
+        oscGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 9);
+        
+        osc.connect(oscGain);
+        oscGain.connect(this.bgmGain!);
+        
+        osc.start();
+        osc.stop(ctx.currentTime + 9);
+      });
+    };
+
+    playChord();
+    // Play a new chord every 6 seconds, creating a nice overlapping ambient texture
+    this.bgmInterval = window.setInterval(playChord, 6000);
+  }
+
+  stopBackgroundMusic() {
+    if (this.bgmInterval) {
+      clearInterval(this.bgmInterval);
+      this.bgmInterval = null;
+    }
+    if (this.bgmGain) {
+      const ctx = this.getCtx();
+      // Fade out smoothly
+      this.bgmGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 2);
+      setTimeout(() => {
+        if (this.bgmGain) {
+          this.bgmGain.disconnect();
+          this.bgmGain = null;
+        }
+      }, 2000);
+    }
   }
 
   playTransition() {

@@ -5,7 +5,7 @@ import { HeartPulse, Droplet } from 'lucide-react';
 export default function Slide1({ text }: { text: string }) {
   return (
     <div className="w-full max-w-6xl h-full flex flex-col md:flex-row items-center justify-center gap-12">
-      <div className="flex-1 space-y-8">
+      <div className="flex-1 space-y-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.5, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -22,18 +22,18 @@ export default function Slide1({ text }: { text: string }) {
           initial={{ opacity: 0, x: -30, filter: 'blur(8px)' }}
           animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
           transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
-          className="text-6xl font-black text-stone-900 leading-tight tracking-tight"
+          className="text-7xl lg:text-[5.5rem] font-black text-stone-900 leading-[1.1] tracking-tighter"
         >
           The Importance of <br/>
-          <span className="text-rose-600">Blood</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-rose-500 drop-shadow-sm">Blood</span>
         </motion.h2>
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
-          className="my-6 border-l-4 border-rose-500 pl-6 py-2"
+          className="my-8 border-l-4 border-rose-400 pl-6 py-1"
         >
-          <p className="text-3xl font-bold text-stone-800 italic">
+          <p className="text-2xl font-semibold text-stone-700 italic tracking-tight">
             "Every 2 seconds, someone needs blood."
           </p>
         </motion.div>
@@ -41,7 +41,7 @@ export default function Slide1({ text }: { text: string }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-          className="text-xl text-stone-600 leading-relaxed font-medium"
+          className="text-lg text-stone-500 leading-relaxed font-medium max-w-lg"
         >
           {text}
         </motion.p>

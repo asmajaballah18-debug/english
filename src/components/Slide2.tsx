@@ -52,19 +52,28 @@ export default function Slide2({ text }: { text: string }) {
             </motion.div>
             8 Main Types
           </h3>
-          <div className="grid grid-cols-4 gap-3">
-            {types.map((t, i) => (
-              <motion.div 
-                key={t} 
-                initial={{opacity:0, scale:0, y: 20}} 
-                animate={{opacity:1, scale:1, y: 0}} 
-                whileHover={{ scale: 1.15, backgroundColor: '#ffe4e6', color: '#e11d48', y: -5, boxShadow: "0 10px 15px -3px rgba(225, 29, 72, 0.2)" }}
-                transition={{delay: 0.4 + i*0.08, type: "spring", stiffness: 250}} 
-                className="bg-rose-50 text-rose-700 font-black py-2 rounded-xl text-center border border-rose-100 cursor-default transition-colors"
-              >
-                {t}
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-4 gap-4">
+            {types.map((t, i) => {
+              const isONeg = t === 'O-';
+              return (
+                <motion.div 
+                  key={t} 
+                  initial={{opacity:0, scale:0, y: 20}} 
+                  animate={{opacity:1, scale:1, y: 0}} 
+                  whileHover={{ scale: 1.15, y: -5, boxShadow: isONeg ? "0 15px 30px -5px rgba(225, 29, 72, 0.5)" : "0 10px 15px -3px rgba(225, 29, 72, 0.2)" }}
+                  transition={{delay: 0.4 + i*0.08, type: "spring", stiffness: 250}} 
+                  className={`relative flex flex-col items-center justify-center aspect-square rounded-full border-4 cursor-default transition-all overflow-hidden ${
+                    isONeg 
+                      ? 'bg-rose-500 border-rose-200 text-white shadow-lg' 
+                      : 'bg-white border-rose-100 text-rose-700 shadow-sm hover:border-rose-300 hover:bg-rose-50'
+                  }`}
+                >
+                  <Droplet className={`absolute bottom-0 translate-y-2 w-12 h-12 opacity-20 ${isONeg ? 'text-white fill-white' : 'text-rose-500 fill-rose-500'}`} />
+                  <span className="font-black text-xl z-10">{t}</span>
+                  {isONeg && <span className="text-[0.5rem] uppercase tracking-wider font-bold z-10 opacity-90 leading-none mt-1">Universal</span>}
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
         <motion.div 
@@ -75,14 +84,22 @@ export default function Slide2({ text }: { text: string }) {
           className="bg-sky-50 p-6 rounded-[2rem] shadow-xl border-4 border-white relative overflow-hidden transition-all duration-300"
         >
           <motion.div 
-            animate={{x: [0, -20, 0], rotate: 360}} 
-            transition={{duration: 20, repeat: Infinity, ease: "linear"}} 
+            animate={{
+              x: [0, -15, 5, 0], 
+              y: [0, 10, -5, 0],
+              rotate: [0, 180, 360],
+              scale: [1, 1.1, 0.9, 1]
+            }} 
+            transition={{duration: 15, repeat: Infinity, ease: "easeInOut"}} 
             className="absolute -right-10 -top-10 opacity-20"
           >
             <Snowflake className="w-40 h-40 text-sky-400" />
           </motion.div>
           <h3 className="text-xl font-bold text-sky-900 mb-2 flex items-center gap-2 relative z-10">
-            <ThermometerSnowflake className="w-5 h-5"/> Cold Storage
+            <motion.div animate={{ rotate: [-10, 10, -10] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+              <ThermometerSnowflake className="w-5 h-5"/>
+            </motion.div>
+            Cold Storage
           </h3>
           <p className="text-sky-700 font-medium relative z-10">
             Blood is kept in specialized refrigerators at 2°C to 6°C to prevent bacterial growth and maintain life-saving properties for up to 42 days.
