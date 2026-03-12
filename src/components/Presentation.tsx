@@ -12,7 +12,7 @@ const slidesData = [
   {
     id: 1,
     component: Slide1,
-    text: "Blood is the spark of life. It carries oxygen and nutrients to every part of our body and helps fight infections. Understanding its importance is the first step to saving lives.",
+    text: "Blood is the spark of life. It delivers oxygen, fights infections, and keeps us healthy. Donating blood is a simple way to save lives.",
     voice: "Kore"
   },
   {
@@ -24,7 +24,7 @@ const slidesData = [
   {
     id: 3,
     component: Slide3,
-    text: "Donating blood is a simple, safe process that takes only a few minutes but can save up to three lives. Friendly medical staff ensure your comfort while you make a heroic contribution.",
+    text: "Blood donation is an important act that helps save lives. Hospitals need blood for patients who are injured, having surgery, or suffering from serious diseases. Donating blood is safe and only takes a short time, but it can make a big difference. By giving blood, people help their community and give others a chance to live.",
     voice: "Charon"
   },
   {
@@ -47,8 +47,7 @@ const slideVariants = {
     x: direction > 0 ? '80%' : '-80%',
     z: -800,
     opacity: 0,
-    scale: 0.6,
-    filter: 'blur(20px)'
+    scale: 0.6
   }),
   center: {
     rotateY: 0,
@@ -56,7 +55,6 @@ const slideVariants = {
     z: 0,
     opacity: 1,
     scale: 1,
-    filter: 'blur(0px)',
     zIndex: 1
   },
   exit: (direction: number) => ({
@@ -65,7 +63,6 @@ const slideVariants = {
     z: -800,
     opacity: 0,
     scale: 0.6,
-    filter: 'blur(20px)',
     zIndex: 0
   })
 };
@@ -119,11 +116,12 @@ export default function Presentation() {
             className="absolute inset-0 z-[100] flex flex-col items-center justify-center bg-stone-50 overflow-hidden"
           >
             <motion.div
-              animate={isTransitioning ? { scale: 150, opacity: 1 } : { scale: [1, 1.05, 1], opacity: 1 }}
-              transition={isTransitioning ? { duration: 1.2, ease: [0.22, 1, 0.36, 1] } : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              animate={isTransitioning ? { scale: 60, opacity: 1 } : { scale: [1, 1.05, 1], opacity: 1 }}
+              transition={isTransitioning ? { duration: 1.0, ease: [0.22, 1, 0.36, 1] } : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
               className="mb-8 relative z-50"
+              style={{ willChange: "transform" }}
             >
-              <svg viewBox="0 0 24 24" className="w-32 h-32 text-rose-600 fill-rose-600 drop-shadow-2xl">
+              <svg viewBox="0 0 24 24" className="w-32 h-32 text-rose-600 fill-rose-600 drop-shadow-xl">
                 <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
               </svg>
             </motion.div>
@@ -140,29 +138,42 @@ export default function Presentation() {
               >
                 English Project Work
               </motion.h2>
-              <h1 className="text-5xl font-black text-stone-900 mb-12 tracking-tight flex space-x-3">
+              <motion.h1 
+                animate={{ scale: [1, 1.02, 1] }}
+                transition={{ delay: 2.2, duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="text-5xl font-black text-stone-900 mb-12 tracking-tight flex space-x-3"
+                style={{ willChange: "transform" }}
+              >
                 {"Blood Donation".split(" ").map((word, i) => (
                   <motion.span
                     key={i}
                     animate={{ y: [0, -15, 0] }}
                     transition={{ delay: 1.2 + i * 0.15, duration: 0.6, ease: "easeInOut" }}
                     className="inline-block"
+                    style={{ willChange: "transform" }}
+                    onAnimationStart={() => {
+                      if (!hasStarted) sfx.playHover();
+                    }}
                   >
                     <motion.span
-                      initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-                      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 + i * 0.15, type: "spring", stiffness: 150 }}
                       className="inline-block"
+                      style={{ willChange: "transform, opacity" }}
+                      onAnimationStart={() => {
+                        if (!hasStarted) sfx.playPop();
+                      }}
                     >
                       {word}
                     </motion.span>
                   </motion.span>
                 ))}
-              </h1>
+              </motion.h1>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.0, duration: 0.8, ease: "easeOut" }}
+                transition={{ delay: 2.8, duration: 0.8, ease: "easeOut" }}
               >
                 <motion.button
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(225, 29, 72, 0.3)", y: -5 }}
@@ -170,7 +181,7 @@ export default function Presentation() {
                   onClick={() => {
                     setBgmEnabled(true);
                     sfx.getCtx();
-                    sfx.playTransition();
+                    sfx.playChime();
                     setIsTransitioning(true);
                     setTimeout(() => {
                       setHasStarted(true);
@@ -240,7 +251,7 @@ export default function Presentation() {
             exit="exit"
             transition={{ type: "spring", stiffness: 100, damping: 20, mass: 1 }}
             className="absolute inset-0 flex items-center justify-center p-16 bg-stone-50 origin-center"
-            style={{ backfaceVisibility: 'hidden' }}
+            style={{ backfaceVisibility: 'hidden', willChange: 'transform, opacity' }}
           >
             <CurrentSlideComponent text={slidesData[currentSlide].text} />
           </motion.div>

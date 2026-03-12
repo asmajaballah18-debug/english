@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { HeartHandshake, Gift, Clock, Droplet } from 'lucide-react';
+import { HeartHandshake, Gift, Clock, Droplet, ShieldCheck } from 'lucide-react';
 
 export default function Slide3({ text }: { text: string }) {
   return (
@@ -19,10 +19,11 @@ export default function Slide3({ text }: { text: string }) {
           <span>The Process</span>
         </motion.div>
         <motion.h2
-          initial={{ opacity: 0, x: -30, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
           className="text-6xl font-black text-stone-900 leading-tight tracking-tight"
+          style={{ willChange: "transform, opacity" }}
         >
           Blood <br/>
           <span className="text-rose-600">Donation</span>
@@ -31,7 +32,8 @@ export default function Slide3({ text }: { text: string }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-          className="text-2xl text-stone-600 leading-relaxed font-medium"
+          className="text-lg text-stone-600 leading-relaxed font-medium max-w-xl"
+          style={{ willChange: "transform, opacity" }}
         >
           {text}
         </motion.p>
@@ -44,53 +46,82 @@ export default function Slide3({ text }: { text: string }) {
           >
             <Droplet className="w-[30rem] h-[30rem] text-rose-600" />
          </motion.div>
-         <div className="grid grid-cols-1 gap-6 w-full max-w-md relative z-10">
+         <div className="grid grid-cols-1 gap-5 w-full max-w-md relative z-10">
             <motion.div 
               initial={{x: 100, opacity: 0, rotate: 5}} 
               animate={{x: 0, opacity: 1, rotate: 0}} 
-              whileHover={{ scale: 1.05, x: -15, boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.25)" }}
+              whileHover={{ scale: 1.05, x: -10, boxShadow: "0 20px 40px -10px rgba(16, 185, 129, 0.2)" }}
               transition={{delay: 0.3, type: "spring", stiffness: 100, damping: 12}} 
-              className="bg-white p-6 rounded-3xl shadow-lg border-2 border-stone-50 flex items-center gap-6 cursor-default transition-all duration-300"
+              className="bg-white p-5 rounded-3xl shadow-lg border-2 border-stone-50 flex items-center gap-5 cursor-default transition-all duration-300"
+              style={{ willChange: "transform, opacity" }}
             >
               <motion.div 
-                animate={{ y: [0, -6, 0] }} 
+                animate={{ y: [0, -4, 0] }} 
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="p-4 bg-emerald-100 text-emerald-600 rounded-2xl shadow-inner flex items-center justify-center"
+                className="p-4 bg-emerald-100 text-emerald-600 rounded-2xl shadow-inner flex items-center justify-center shrink-0"
               >
                 <motion.div
-                  animate={{ rotate: [-15, 15, -15] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ rotate: [0, 15, 0, 0] }}
+                  transition={{ duration: 2, times: [0, 0.1, 0.2, 1], repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <Clock className="w-8 h-8"/>
+                  <Clock className="w-7 h-7"/>
                 </motion.div>
               </motion.div>
               <div>
-                <h4 className="font-black text-xl text-stone-800">Quick & Easy</h4>
-                <p className="text-stone-500">Takes only 10-15 minutes.</p>
+                <h4 className="font-black text-lg text-stone-800">Quick & Easy</h4>
+                <p className="text-stone-500 text-sm">Takes only 10-15 minutes.</p>
               </div>
             </motion.div>
+            
             <motion.div 
               initial={{x: 100, opacity: 0, rotate: 5}} 
               animate={{x: 0, opacity: 1, rotate: 0}} 
-              whileHover={{ scale: 1.05, x: -15, boxShadow: "0 25px 50px -12px rgba(225, 29, 72, 0.25)" }}
-              transition={{delay: 0.5, type: "spring", stiffness: 100, damping: 12}} 
-              className="bg-white p-6 rounded-3xl shadow-lg border-2 border-stone-50 flex items-center gap-6 cursor-default transition-all duration-300"
+              whileHover={{ scale: 1.05, x: -10, boxShadow: "0 20px 40px -10px rgba(59, 130, 246, 0.2)" }}
+              transition={{delay: 0.4, type: "spring", stiffness: 100, damping: 12}} 
+              className="bg-white p-5 rounded-3xl shadow-lg border-2 border-stone-50 flex items-center gap-5 cursor-default transition-all duration-300"
+              style={{ willChange: "transform, opacity" }}
             >
               <motion.div 
-                animate={{ y: [0, -6, 0] }} 
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className="p-4 bg-rose-100 text-rose-600 rounded-2xl shadow-inner flex items-center justify-center"
+                animate={{ y: [0, -4, 0] }} 
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+                className="p-4 bg-blue-100 text-blue-600 rounded-2xl shadow-inner flex items-center justify-center shrink-0"
               >
                 <motion.div
-                  animate={{ y: [0, -4, 0], scale: [1, 1.1, 1], rotate: [-5, 5, -5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.8, 1, 0.8] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <Gift className="w-8 h-8"/>
+                  <ShieldCheck className="w-7 h-7"/>
                 </motion.div>
               </motion.div>
               <div>
-                <h4 className="font-black text-xl text-stone-800">Heroic Impact</h4>
-                <p className="text-stone-500">1 donation saves up to 3 lives.</p>
+                <h4 className="font-black text-lg text-stone-800">Safe & Secure</h4>
+                <p className="text-stone-500 text-sm">Sterile, single-use equipment.</p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{x: 100, opacity: 0, rotate: 5}} 
+              animate={{x: 0, opacity: 1, rotate: 0}} 
+              whileHover={{ scale: 1.05, x: -10, boxShadow: "0 20px 40px -10px rgba(225, 29, 72, 0.2)" }}
+              transition={{delay: 0.5, type: "spring", stiffness: 100, damping: 12}} 
+              className="bg-white p-5 rounded-3xl shadow-lg border-2 border-stone-50 flex items-center gap-5 cursor-default transition-all duration-300"
+              style={{ willChange: "transform, opacity" }}
+            >
+              <motion.div 
+                animate={{ y: [0, -4, 0] }} 
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="p-4 bg-rose-100 text-rose-600 rounded-2xl shadow-inner flex items-center justify-center shrink-0"
+              >
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Gift className="w-7 h-7"/>
+                </motion.div>
+              </motion.div>
+              <div>
+                <h4 className="font-black text-lg text-stone-800">Heroic Impact</h4>
+                <p className="text-stone-500 text-sm">1 donation saves up to 3 lives.</p>
               </div>
             </motion.div>
          </div>

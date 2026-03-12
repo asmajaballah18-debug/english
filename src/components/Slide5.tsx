@@ -15,10 +15,11 @@ export default function Slide5({ text }: { text: string }) {
   return (
     <div className="w-full max-w-6xl h-full flex flex-col items-center justify-center gap-12 text-center">
       <motion.h2 
-        initial={{ opacity: 0, y: -30, filter: 'blur(8px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ type: "spring", stiffness: 120 }}
         className="text-5xl font-black text-stone-900 tracking-tight"
+        style={{ willChange: "transform, opacity" }}
       >
         Made by our team
       </motion.h2>
@@ -35,15 +36,17 @@ export default function Slide5({ text }: { text: string }) {
               initial: { opacity: 0, y: 60, scale: 0.8 },
               animate: { opacity: 1, y: 0, scale: 1, transition: { delay: 0.2 + i * 0.1, type: "spring", stiffness: 150 } },
               hover: { 
-                scale: 1.08, 
-                y: -15, 
-                rotate: i % 2 === 0 ? 3 : -3,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
+                scale: 1.05, 
+                y: -8, 
+                rotate: i % 2 === 0 ? 2 : -2,
+                boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.12)",
+                transition: { type: "spring", stiffness: 300, damping: 20 }
               },
               tap: { scale: 0.95 }
             }}
             onMouseEnter={() => sfx.playHover()}
             className="bg-white p-8 rounded-[3rem] shadow-xl border-4 border-stone-50 flex flex-col items-center gap-4 transition-colors duration-300 cursor-pointer group w-56"
+            style={{ willChange: "transform" }}
           >
             <motion.div 
               variants={{

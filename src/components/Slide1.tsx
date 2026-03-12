@@ -19,8 +19,8 @@ export default function Slide1({ text }: { text: string }) {
           <span>The Spark of Life</span>
         </motion.div>
         <motion.h2
-          initial={{ opacity: 0, x: -30, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
           className="text-7xl lg:text-[5.5rem] font-black text-stone-900 leading-[1.1] tracking-tighter"
         >
@@ -41,7 +41,7 @@ export default function Slide1({ text }: { text: string }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-          className="text-lg text-stone-500 leading-relaxed font-medium max-w-lg"
+          className="text-xl text-stone-600 leading-relaxed font-medium max-w-lg"
         >
           {text}
         </motion.p>
@@ -77,12 +77,18 @@ export default function Slide1({ text }: { text: string }) {
             className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rose-300 via-transparent to-transparent pointer-events-none"
           />
           <motion.div
-            animate={{ scale: [1, 1.15, 1], y: [0, -8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="relative flex flex-col items-center justify-center"
           >
             <Droplet className="w-56 h-56 text-rose-600 drop-shadow-2xl fill-rose-500" />
-            <HeartPulse className="w-20 h-20 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 drop-shadow-md" />
+            <motion.div
+              style={{ position: 'absolute', top: '50%', left: '50%', x: '-50%', y: '-25%' }}
+              animate={{ scale: [1, 1.15, 1] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <HeartPulse className="w-20 h-20 text-white drop-shadow-md" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
